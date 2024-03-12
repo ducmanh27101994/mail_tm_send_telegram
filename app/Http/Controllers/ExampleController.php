@@ -63,10 +63,8 @@ class ExampleController extends Controller
                         'password' => $parts[2]
                     ]);
                     $message_new = "Đã thêm Email Address thành công";
-                } else {
-                    $message_new = "Đã tồn tại địa chỉ Email này";
+                    $this->sendMessageTele($message_new, $this->chat_id);
                 }
-                $this->sendMessageTele($message_new, $this->chat_id);
             } elseif (isset($parts[0]) && $parts[0] == '/listemail') {
                 $listUser = DB::table('users')->select('email')->get()->toArray();
                 if (!empty($listUser)) {

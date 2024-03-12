@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('command:exampleRouter')->everyFiveMinutes();
-        $schedule->command('command:add')->everyMinute();
+        $schedule->command('command:add')->cron('*/15 * * * * *');
     }
 
     /**
