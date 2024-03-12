@@ -31,7 +31,7 @@ class ExampleController extends Controller
                 if (!empty($getMail)) {
                     foreach ($getMail as $value) {
                         //True là đã xem, False là chưa xem
-                        if (isset($value['seen']) && $value['seen'] == true) {
+                        if (isset($value['seen']) && $value['seen'] == false) {
                             $flag = true;
                             $dateTime = new \DateTime($value['createdAt']);
                             $formattedDateTime = $dateTime->format('d/m/Y H:i:s');
@@ -55,12 +55,17 @@ class ExampleController extends Controller
             $telegramText = $telegram['message']['text'];
             $parts = explode(":", $telegramText);
             if (isset($parts[0]) && $parts[0] == '/add') {
-                DB::table('users')->insert([
-                    'name' => "example",
-                    'email' => $parts[1],
-                    'password' => $parts[2]
-                ]);
-                $message_new = "Đã thêm Email Address thành công";
+                $checkUser = DB::table('users')->where('email', '=', $parts[1])->first();
+                if (!$checkUser) {
+                    DB::table('users')->insert([
+                        'name' => "example",
+                        'email' => $parts[1],
+                        'password' => $parts[2]
+                    ]);
+                    $message_new = "Đã thêm Email Address thành công";
+                } else {
+                    $message_new = "Đã tồn tại địa chỉ Email này";
+                }
                 $this->sendMessageTele($message_new, $this->chat_id);
             } elseif (isset($parts[0]) && $parts[0] == '/listemail') {
                 $listUser = DB::table('users')->select('email')->get()->toArray();
