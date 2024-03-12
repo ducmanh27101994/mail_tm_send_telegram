@@ -79,9 +79,6 @@ class ExampleController extends Controller
                     $message_new = "Không có Email đăng ký";
                     $this->sendMessageTele($message_new, $this->chat_id);
                 }
-            } else {
-                $message_new = "Cú pháp không đúng";
-                $this->sendMessageTele($message_new, $this->chat_id);
             }
         }
     }
