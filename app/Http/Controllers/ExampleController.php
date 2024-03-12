@@ -53,7 +53,7 @@ class ExampleController extends Controller
         $telegram = $this->apiTelegram();
         if (!empty($telegram) && isset($telegram['message']['text'])) {
             $telegramText = $telegram['message']['text'];
-            $parts = explode(":", $telegramText);
+            $parts = explode("::", $telegramText);
             if (isset($parts[0]) && $parts[0] == '/add') {
                 $checkUser = DB::table('users')->where('email', '=', $parts[1])->first();
                 if (!$checkUser) {
