@@ -31,7 +31,7 @@ class ExampleController extends Controller
                 if (!empty($getMail)) {
                     foreach ($getMail as $value) {
                         //True là đã xem, False là chưa xem
-                        if (isset($value['seen']) && $value['seen'] == false) {
+                        if (isset($value['seen']) && $value['seen'] == true) {
                             $flag = true;
                             $dateTime = new \DateTime($value['createdAt']);
                             $formattedDateTime = $dateTime->format('d/m/Y H:i:s');

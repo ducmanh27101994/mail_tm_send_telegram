@@ -38,20 +38,9 @@ class CallExampleRouter extends Command
     public function handle()
     {
         $client = new \GuzzleHttp\Client();
+        $url = env('APP_URL') . '/example';
+        $response = $client->get("$url");
 
-        try {
-            $url = env('APP_URL').'/example';
-            $responseExample = $client->get($url);
 
-            $statusCodeExample = $responseExample->getStatusCode();
-            $responseBodyExample = $responseExample->getBody()->getContents();
-
-            $this->info("HTTP status code for /example: $statusCodeExample");
-            $this->info("Response body for /example: $responseBodyExample");
-        } catch (\Exception $e) {
-            $this->error("Error occurred while calling /example: " . $e->getMessage());
-        }
-
-        return 0;
     }
 }
